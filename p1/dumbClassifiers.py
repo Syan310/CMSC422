@@ -12,7 +12,7 @@ import util
 
 class AlwaysPredictOne(BinaryClassifier):
     """
-    This defines the classifier that always predicts +1.
+    This defines the classifier that always predicts +1. hello
     """
 
     def __init__(self, opts):
