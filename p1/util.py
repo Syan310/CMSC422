@@ -133,7 +133,7 @@ class Counter(dict):
         all = self.items()
         values = [x[1] for x in all]
         maxIndex = values.index(max(values))
-        return all[maxIndex][0]
+        return list(all)[maxIndex][0]
 
     def sortedKeys(self):
         """
@@ -149,17 +149,17 @@ class Counter(dict):
         """
         sortedItems = self.items()
         compare = lambda x, y:  sign(y[1] - x[1])
-        sortedItems.sort(cmp=compare)
+        sortedItems = sorted(sortedItems, key=lambda x: x[1], reverse=True)
         return [x[0] for x in sortedItems]
 
     def totalCount(self):
         """
         Returns the sum of counts for all keys.
         """
-        return sum(self.values())
+        return sum(list(self.values()))
 
     def normalize(self):
-        """
+        """ 
         Edits the counter such that the total count of all
         keys sums to 1.  The ratio of counts for all keys
         will remain the same. Note that normalizing an empty

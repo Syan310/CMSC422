@@ -9,10 +9,11 @@ from binary import *
 from numpy  import *
 
 import util
+import runClassifier
 
 class AlwaysPredictOne(BinaryClassifier):
     """
-    This defines the classifier that always predicts +1. hello
+    This defines the classifier that always predicts +1.
     """
 
     def __init__(self, opts):
@@ -59,14 +60,23 @@ class AlwaysPredictMostFrequent(BinaryClassifier):
         return the most frequent class!
         """
         ### TODO: YOUR CODE HERE
+        
+        return self.mostFrequentClass
         util.raiseNotDefined()
 
     def train(self, X, Y):
         '''
         just figure out what the most frequent class is and store it in self.mostFrequentClass
         '''
-
         ### TODO: YOUR CODE HERE
+        
+        sum = 0
+        for n in Y:
+            sum += n
+        
+        if sum < 0:
+            self.mostFrequentClass = -1
+            
         util.raiseNotDefined()
 
 class FirstFeatureClassifier(BinaryClassifier):
@@ -96,6 +106,11 @@ class FirstFeatureClassifier(BinaryClassifier):
         """
 
         ### TODO: YOUR CODE HERE
+        if X[0] > 0:
+            return self.classForPos
+        else:
+            return self.classForNeg
+        
         util.raiseNotDefined()
 
     def train(self, X, Y):
@@ -104,4 +119,15 @@ class FirstFeatureClassifier(BinaryClassifier):
         '''
 
         ### TODO: YOUR CODE HERE
+        pos_sum, neg_sum = 0
+        for i, v in enumerate(X[:,0]):
+            if v > 0:
+                pos_sum += Y[i]
+            else:
+                neg_sum += Y[i]
+        
+        self.classForPos = 1 if pos_sum >= 0 else -1
+        self.classForNeg = 1 if neg_sum >=0 else -1    
+
+        
         util.raiseNotDefined()
