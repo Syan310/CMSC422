@@ -118,7 +118,7 @@ class FirstFeatureClassifier(BinaryClassifier):
         just figure out what the most frequent class is for each value of X[:,0] and store it
         '''
 
-        ### TODO: YOUR CODE HERE
+        ### TODO: YOUR CODE 
         pos_sum, neg_sum = 0
         for i, v in enumerate(X[:,0]):
             if v > 0:
