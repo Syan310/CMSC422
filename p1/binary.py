@@ -8,7 +8,6 @@ gradient descent).
 
 import util
 from numpy import *
-
 class BinaryClassifier:
     """
     Our abstract class.
