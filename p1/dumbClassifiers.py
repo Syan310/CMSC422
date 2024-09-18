@@ -59,16 +59,13 @@ class AlwaysPredictMostFrequent(BinaryClassifier):
         X is an vector and we want to make a single prediction: Just
         return the most frequent class!
         """
-        ### TODO: YOUR CODE HERE
         
         return self.mostFrequentClass
-        util.raiseNotDefined()
 
     def train(self, X, Y):
         '''
         just figure out what the most frequent class is and store it in self.mostFrequentClass
         '''
-        ### TODO: YOUR CODE HERE
         
         sum = 0
         for n in Y:
@@ -77,7 +74,6 @@ class AlwaysPredictMostFrequent(BinaryClassifier):
         if sum < 0:
             self.mostFrequentClass = -1
             
-        util.raiseNotDefined()
 
 class FirstFeatureClassifier(BinaryClassifier):
     """
@@ -105,21 +101,19 @@ class FirstFeatureClassifier(BinaryClassifier):
         check the first feature and make a classification decision based on it
         """
 
-        ### TODO: YOUR CODE HERE
         if X[0] > 0:
             return self.classForPos
         else:
             return self.classForNeg
         
-        util.raiseNotDefined()
 
     def train(self, X, Y):
         '''
         just figure out what the most frequent class is for each value of X[:,0] and store it
         '''
 
-        ### TODO: YOUR CODE 
-        pos_sum, neg_sum = 0
+        pos_sum = 0
+        neg_sum = 0
         for i, v in enumerate(X[:,0]):
             if v > 0:
                 pos_sum += Y[i]
@@ -129,5 +123,3 @@ class FirstFeatureClassifier(BinaryClassifier):
         self.classForPos = 1 if pos_sum >= 0 else -1
         self.classForNeg = 1 if neg_sum >=0 else -1    
 
-        
-        util.raiseNotDefined()
