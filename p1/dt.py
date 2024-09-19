@@ -63,9 +63,13 @@ class DT(BinaryClassifier):
         at 0.5, so <0.5 means left branch and >=0.5 means right
         branch.
         """
-
-        ### TODO: YOUR CODE HERE
-        util.raiseNotDefined()
+        if self.isLeaf:
+            return self.label
+        else:
+            if X.feature < 0.5:
+                return self.left.predict(X)
+            else:
+                return self.right.predict(X)
 
     def trainDT(self, X, Y, maxDepth, used):
         """
