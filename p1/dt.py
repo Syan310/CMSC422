@@ -84,9 +84,9 @@ class DT(BinaryClassifier):
         if maxDepth <= 0 or len(util.uniq(Y)) <= 1:
             # we'd better end at this point.  need to figure
             # out the label to return
-            self.isLeaf = util.raiseNotDefined()    ### TODO: YOUR CODE HERE
+            self.isLeaf = True    ### TODO: YOUR CODE HERE
 
-            self.label  = util.raiseNotDefined()    ### TODO: YOUR CODE HERE
+            self.label = util.mode(Y)  ### TODO: YOUR CODE HERE
 
 
         else:
@@ -100,15 +100,15 @@ class DT(BinaryClassifier):
 
                 # suppose we split on this feature; what labels
                 # would go left and right?
-                leftY  = util.raiseNotDefined()    ### TODO: YOUR CODE HERE
+                leftY  = Y[X[:,d] < 0.5]### TODO: YOUR CODE HERE
 
-                rightY = util.raiseNotDefined()    ### TODO: YOUR CODE HERE
+                rightY = Y[X[:,d] >= 0.5]     ### TODO: YOUR CODE HERE
 
 
                 # we'll classify the left points as their most
                 # common class and ditto right points.  our error
                 # is the how many are not their mode.
-                error = util.raiseNotDefined()    ### TODO: YOUR CODE HERE
+                error = sum(leftY != util.mode(leftY)) + sum(rightY != util.mode(rightY))  ### TODO: YOUR CODE HERE
 
 
                 # check to see if this is a better error rate
@@ -122,10 +122,11 @@ class DT(BinaryClassifier):
                 self.label  = util.mode(Y)
 
             else:
-                self.isLeaf  = util.raiseNotDefined()    ### TODO: YOUR CODE HERE
+                self.isLeaf  = False   ### TODO: YOUR CODE HERE
 
-                self.feature = util.raiseNotDefined()    ### TODO: YOUR CODE HERE
+                self.feature = bestFeature    ### TODO: YOUR CODE HERE
 
+                used.append(bestFeature)
 
                 self.left  = DT({'maxDepth': maxDepth-1})
                 self.right = DT({'maxDepth': maxDepth-1})
@@ -135,7 +136,8 @@ class DT(BinaryClassifier):
                 #   self.right.trainDT(...) 
                 # with appropriate arguments
                 ### TODO: YOUR CODE HERE
-                util.raiseNotDefined()
+                self.left.trainDT(X[X[:,bestFeature]<0.5,:], Y[X[:,bestFeature]<0.5], maxDepth - 1, used)
+                self.right.trainDT(X[X[:,bestFeature]>=0.5,:], Y[X[:,bestFeature]>=0.5], maxDepth - 1, used)
 
     def train(self, X, Y):
         """
