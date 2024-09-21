@@ -4,8 +4,9 @@ import util
 import datasets
 import binary
 import dumbClassifiers
+import dt
 import runClassifier
 
-h = dumbClassifiers.FirstFeatureClassifier({})
-runClassifier.trainTestSet(h, datasets.TennisData)
+h = dt.DT({'maxDepth': 2})
+h.train(datasets.TennisData.X, datasets.TennisData.Y)
 print(h)

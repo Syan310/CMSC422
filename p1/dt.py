@@ -164,7 +164,6 @@ class DT(BinaryClassifier):
 
           - take a look at the 'mode' and 'uniq' functions in util.py
         """
-
         self.trainDT(X, Y, self.opts['maxDepth'], [])
 
 
