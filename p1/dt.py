@@ -66,7 +66,7 @@ class DT(BinaryClassifier):
         if self.isLeaf:
             return self.label
         else:
-            if X.feature < 0.5:
+            if X[self.feature] < 0.5:
                 return self.left.predict(X)
             else:
                 return self.right.predict(X)

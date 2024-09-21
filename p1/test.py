@@ -7,6 +7,5 @@ import dumbClassifiers
 import dt
 import runClassifier
 
-h = dt.DT({'maxDepth': 2})
-h.train(datasets.TennisData.X, datasets.TennisData.Y)
-print(h)
+curve = runClassifier.hyperparamCurveSet(dt.DT({}), 'maxDepth', [1,2,4,6,8,12,16], datasets.SentimentData)
+runClassifier.plotCurve('DT on Sentiment Data (hyperparameter)', curve)
