@@ -6,6 +6,6 @@ import binary
 import dumbClassifiers
 import dt
 import runClassifier
+import knn
 
-curve = runClassifier.hyperparamCurveSet(dt.DT({}), 'maxDepth', [1,2,4,6,8,12,16], datasets.SentimentData)
-runClassifier.plotCurve('DT on Sentiment Data (hyperparameter)', curve)
+runClassifier.trainTestSet(knn.KNN({'isKNN': False, 'eps': 8.0}), datasets.DigitData)

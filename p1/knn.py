@@ -66,16 +66,57 @@ class KNN(BinaryClassifier):
 
             val = 0                    # this is our return value: #pos - #neg of the K nearest neighbors of X
             ### TODO: YOUR CODE HERE
-            util.raiseNotDefined()
+            
+            num_f = self.trX.shape[1]
+            
+            dis = []
+            for d in range(N):
+                total = 0
+                for f in range(num_f):
+                    total += square(self.trX[d][f] - X[f])
+                total = sqrt(total)
+                dis.append((total, d))
+            
+            sorted_dis = sorted(dis, key=lambda x: x[0])
+            
+            pos = 0
+            neg = 0
+            
+            for k in range(K):
+                y = sorted_dis[k][1]
+                if self.trY[y] >= 0:
+                    pos += 1
+                else:
+                    neg += 1
+            val = pos - neg
 
             return val
+        
         else:
             # this is an epsilon ball model
             eps = self.opts['eps']     # how big is our epsilon ball
 
             val = 0                    # this is our return value: #pos - #neg within and epsilon ball of X
             ### TODO: YOUR CODE HERE
-            util.raiseNotDefined()
+            
+            num_f = self.trX.shape[1]
+            dis = []
+            
+            for d in range(N):
+                total = 0
+                for f in range(num_f):
+                    total += square(self.trX[d][f] - X[f])
+                total = sqrt(total)
+                dis.append((total, d))
+                
+            sorted_dis = sorted(dis, key=lambda x: x[0])
+            
+            for dist, d in sorted_dis:
+                if dist <= eps:
+                    val += np.sign(self.trY[d])
+                else:
+                    break
+            
             return val
                 
             
