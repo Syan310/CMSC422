@@ -7,5 +7,7 @@ import dumbClassifiers
 import dt
 import runClassifier
 import knn
-
-runClassifier.trainTestSet(knn.KNN({'isKNN': False, 'eps': 8.0}), datasets.DigitData)
+import perceptron
+h = dt.DT({'maxDepth': 2})
+h.train(datasets.SentimentData.X, datasets.SentimentData.Y)
+print(h)

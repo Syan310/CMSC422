@@ -2,6 +2,8 @@ from math import *
 import random
 from numpy import *
 import matplotlib.pyplot as plt
+import numpy as np
+import datasets
 
 waitForEnter=False
 
@@ -18,14 +20,21 @@ def computeExampleDistance(x1, x2):
     return sqrt(dist)
 
 def computeDistances(data):
-    N = len(data)
-    D = len(data[0])
+    N = data.shape[0]
+    D = data.shape[1]
     dist = []
     for n in range(N):
         for m in range(n):
-            dist.append( computeExampleDistance(data[n],data[m])  / sqrt(D))
+            dist.append(np.sqrt(np.sum((data[n] - data[m])**2)) / np.sqrt(D))
     return dist
 
+def computeDistancesSubdims(data, d):
+    N = data.shape[0]
+    indices = np.random.choice(data.shape[1], d, replace=False)
+    subsampled_data = data[:, indices]
+    return computeDistances(subsampled_data)
+
+    
 N    = 200                   # number of examples
 Dims = [2, 8, 32, 128, 512]   # dimensionalities to try
 Cols = ['#FF0000', '#880000', '#000000', '#000088', '#0000FF']
@@ -36,7 +45,7 @@ plt.ylabel('# of pairs of points at that distance')
 plt.title('dimensionality versus uniform point distances')
 
 for i,d in enumerate(Dims):
-    distances = computeDistances(generateUniformDataset(d, N))
+    distances = computeDistancesSubdims(datasets.DigitData.X, d)
     print("D=%d, average distance=%g" % (d, mean(distances) * sqrt(d)))
     plt.hist(distances,
              Bins,
